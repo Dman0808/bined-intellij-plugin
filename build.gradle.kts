@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "org.exbin.deltahex.intellij"
-version = "0.2.11-SNAPSHOT"
+version = "0.2.10.1-SNAPSHOT"
 // Test IDE path: "~/app/jetbrains/RustRover-latest/" //
 val ideLocalPath = providers.gradleProperty("ideLocalPath").getOrElse("")
 

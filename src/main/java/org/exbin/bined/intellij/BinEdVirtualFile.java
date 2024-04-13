@@ -20,7 +20,9 @@ import com.intellij.openapi.project.DumbAware;
 import com.intellij.openapi.vfs.LocalFileSystem;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.vfs.VirtualFileSystem;
+import org.exbin.bined.intellij.main.BinEdManager;
 import org.exbin.framework.bined.BinEdFileHandler;
+import org.exbin.framework.bined.preferences.BinaryEditorPreferences;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
@@ -210,8 +212,10 @@ public class BinEdVirtualFile extends VirtualFile implements DumbAware {
     public void openFile(BinEdFileHandler fileHandler) {
         if (!isDirectory() && isValid()) {
             File file = extractFile(this);
+            // TODO pass handling mode correctly
+            BinaryEditorPreferences preferences = BinEdManager.getInstance().getPreferences();
+            editorFile.setNewData(preferences.getEditorPreferences().getFileHandlingMode());
             if (file.isFile() && file.exists()) {
-                fileHandler.clearFile();
                 fileHandler.loadFromFile(file.toURI(), null);
             } else {
                 try (InputStream stream = getInputStream()) {
@@ -220,6 +224,10 @@ public class BinEdVirtualFile extends VirtualFile implements DumbAware {
                     Logger.getLogger(BinEdFileHandler.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+
+            // TODO update status correctly
+            BinEdManager.getInstance().updateStatus(editorFile.getEditorComponent(), editorFile.getDocumentOriginalSize());
+//            fileHandler.onInitFromPreferences(preferences);
         }
     }
 

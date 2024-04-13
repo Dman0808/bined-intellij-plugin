@@ -200,6 +200,7 @@ public class BinEdFileHandler implements FileHandler, UndoFileHandler, BinEdComp
 
     private void fileSync() {
         documentOriginalSize = getCodeArea().getDataSize();
+        editorComponent.getStatusPanel().setCurrentDocumentSize(documentOriginalSize, documentOriginalSize);
         undoHandlerWrapper.setSyncPoint();
     }
 

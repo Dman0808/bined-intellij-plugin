@@ -45,6 +45,7 @@ import org.exbin.auxiliary.binary_data.paged.PagedData;
 import org.exbin.bined.swing.extended.ExtCodeArea;
 import org.exbin.framework.api.XBApplication;
 import org.exbin.framework.bined.compare.gui.CompareFilesPanel;
+import org.exbin.framework.bined.gui.BinEdComponentFileApi;
 import org.exbin.framework.utils.ActionUtils;
 import org.exbin.framework.utils.WindowUtils;
 import org.exbin.framework.utils.gui.CloseControlPanel;
@@ -99,7 +100,7 @@ public class CompareFilesAction extends AbstractAction {
         controlPanel.setHandler(dialog::close);
         Optional<FileHandler> activeFile = editorProvider.getActiveFile();
         if (activeFile.isPresent()) {
-            compareFilesPanel.setLeftFile(((BinEdFileHandler) activeFile.get()).getCodeArea().getContentData());
+            compareFilesPanel.setLeftFile(((BinEdComponentFileApi) activeFile.get()).getCodeArea().getContentData());
         }
 
         //        List<FileHandler> fileHandlers;
